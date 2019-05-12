@@ -4,7 +4,7 @@ import CustomCard from '../common/CustomCard';
 
 const NewList  = props => {
     return (
-        <CustomCard containerClass="new-list-container">
+        <CustomCard link="/list" containerClass="new-list-container">
             <div>
                 <p className="title">Adicionar novas Listas</p>
             </div>
