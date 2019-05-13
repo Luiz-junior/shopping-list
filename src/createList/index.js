@@ -1,76 +1,56 @@
 import React from 'react';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
-import { InputAdornment } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+import Checkbox from '@material-ui/core/Checkbox';
+import Typography from '@material-ui/core/Typography';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
+
 
 import './list.css';
-
-const units = ['kg', 'lt', 'un'];
+import Form from './Form';
+import CustomCard from '../common/CustomCard';
 
 const CreateList = props => {
     return (
         <div className="page-container">
-            <form className="form-container">
-                <div className="form-row">
-                    <TextField
-                        label="Lista"
-                        value={''}
-                        onChange={() => {}}
-                        required
-                        name="list"
-                    />
-                    <Button variant="outlined" color="secondary">Adicionar</Button>                
-                </div>
+            <Form />
 
-                <div className="form-row">
-                    <TextField
-                        label="Produto"
-                        value={''}
-                        onChange={() => {}}
-                        required
-                        name="product"
-                    />
+            <div className="list-items-container">
+                <CustomCard
+                    link="#"
+                    containerClass="list-item"
+                    footer={<ListItemFooter />}
+                >
+                    <div>
+                        <div className="list-item-header">
+                            <Typography variant="subtitle1" component="h2">Café</Typography>
+                            <Checkbox />
+                        </div>
+                        <Typography>1 Unidade</Typography>
+                        <Typography>R$ 10.00</Typography>
+                    </div>
+                </CustomCard>
+            </div>
 
-                    <TextField
-                        label="Quantidade"
-                        value={''}
-                        onChange={() => {}}
-                        required
-                        name="quantity"
-                    />
-
-                    <TextField
-                        select
-                        label="Unidade"
-                        value={''}
-                        onChange={() => {}}
-                        required
-                        name="unity"
-                    >
-                        {
-                            units.map(option => (
-                                <MenuItem key={option} value={option}>
-                                    {option}
-                                </MenuItem>
-                            ))
-                        }
-                    </TextField>
-
-                    <TextField
-                        label="Preço"
-                        value={''}
-                        onChange={() => {}}
-                        name="price"
-                        InputProps={{ 
-                            startAdornment: <InputAdornment position="start">R$</InputAdornment>
-                        }}
-                    />
-                </div>
-
-            </form>
         </div>
     );
 };
+
+const ListItemFooter = () => (
+    <div className="list-card-footer">
+        <div className="list-card-footer-actions">
+            <FontAwesomeIcon
+                icon={faPen}
+                color="#00b0ff"
+                size="1x"
+            />
+            <FontAwesomeIcon
+                icon={faTrash}
+                color="#e91e63"
+                size="1x"
+            />
+        </div>
+        <p>Total: R$ 50</p>
+    </div>
+);
 
 export default CreateList;

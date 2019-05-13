@@ -19,11 +19,11 @@ const CustomCard = props => {
                             {props.children}
                         </CardContent>
                     </CardActionArea>
-                    { props.footer && (
+                    {props.footer && (
                         <div>
                             <Divider />
                             <CardActions className="card-footer">
-                                { props.footer }
+                                {props.footer}
                             </CardActions>
                         </div>
                     )}
@@ -37,6 +37,7 @@ CustomCard.propTypes = {
     containerClass: PropTypes.string.isRequired,
     children: PropTypes.element.isRequired,
     footer: PropTypes.element,
+    link: PropTypes.string.isRequired,
 };
 
 export default CustomCard;
