@@ -8,10 +8,10 @@ import './list.css';
 
 const List = props => {
     return (
-        <CustomCard 
-            containerClass="list-container" 
+        <CustomCard
+            containerClass="list-container"
             link="/list"
-            footer={<ListFooter />} 
+            footer={<ListFooter />}
         >
             <div>
                 <p className="title">Mês</p>
