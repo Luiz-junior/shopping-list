@@ -5,7 +5,7 @@ const initialState = {
     items: []
 };
 
-export default function list(state, action) {
+export default function list(state = initialState, action) {
     switch (action.type) {
         case ADD_PRODUCT:
             return { list: action.list, items: [...state.items, action.product] }
