@@ -4,14 +4,14 @@ import TextField from '@material-ui/core/TextField';
 import { InputAdornment } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
-const units = ['kg', 'lt', 'un'];
+const units = ['kilo(s)', 'litro(s)', 'unidade(s)'];
 
 class Form extends Component {
 
     state = {
         list: '',
         product: '',
-        quantity: null,
+        quantity: '',
         unity: '',
         price: '',
         showErrors: false,
@@ -29,9 +29,8 @@ class Form extends Component {
             this.props.addProduct({ product, quantity, unity, price }, list);
 
             this.setState({
-                list: '',
                 product: '',
-                quantity: null,
+                quantity: '',
                 unity: '',
                 price: '',
                 showErrors: false,

@@ -5,21 +5,21 @@ import Typography from '@material-ui/core/Typography';
 import ListItemFooter from './ListItemFooter';
 import CustomCard from '../common/CustomCard';
 
-const ListItem = props => {
+const ListItem = ({ item }) => {    
     return (
         <CustomCard
             link="#"
             containerClass="list-item"
             image="http://s2.glbimg.com/P6Nn4AXYPq-K1Xek4cCKyONYYyA=/e.glbimg.com/og/ed/f/original/2014/01/15/cafe.jpg"
-            footer={<ListItemFooter />}
+            footer={<ListItemFooter total={item.total} />}
         >
             <div>
                 <div className="list-item-header">
-                    <Typography variant="subtitle1" component="h2">Café</Typography>
+                    <Typography variant="subtitle1" component="h2">{item.product}</Typography>
                     <Checkbox />
                 </div>
-                <Typography>1 Unidade</Typography>
-                <Typography>R$ 10.00</Typography>
+                <Typography>{item.quantity} {item.unity}</Typography>
+                <Typography>R$ {item.price}</Typography>
             </div>
         </CustomCard>
     );
