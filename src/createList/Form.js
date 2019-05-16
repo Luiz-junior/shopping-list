@@ -1,72 +1,110 @@
-import React from 'react';
+import React, { Component } from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import { InputAdornment } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
-const units = ['kg', 'lt', 'un'];
+const units = ['kilo(s)', 'litro(s)', 'unidade(s)'];
 
-const Form = props => {
-    return (
-        <form className="form-container">
-            <div className="form-row">
-                <TextField
-                    label="Lista"
-                    value={''}
-                    onChange={() => { }}
-                    required
-                    name="list"
-                />
-                <Button variant="outlined" color="secondary">Adicionar</Button>
-            </div>
+class Form extends Component {
 
-            <div className="form-row">
-                <TextField
-                    label="Produto"
-                    value={''}
-                    onChange={() => { }}
-                    required
-                    name="product"
-                />
+    state = {
+        list: '',
+        product: '',
+        quantity: '',
+        unity: '',
+        price: '',
+        showErrors: false,
+    };
 
-                <TextField
-                    label="Quantidade"
-                    value={''}
-                    onChange={() => { }}
-                    required
-                    name="quantity"
-                />
+    onChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value });
+    };
 
-                <TextField
-                    select
-                    label="Unidade"
-                    value={''}
-                    onChange={() => { }}
-                    required
-                    name="unity"
-                >
-                    {
-                        units.map(option => (
-                            <MenuItem key={option} value={option}>
-                                {option}
-                            </MenuItem>
-                        ))
-                    }
-                </TextField>
+    onSubmit = () => {
+        const { list, product, quantity, unity, price } = this.state;
+        if(!list || !product || !quantity || !unity) {
+            this.setState({ showErrors: true });
+        } else{
+            this.props.addProduct({ product, quantity, unity, price }, list);
 
-                <TextField
-                    label="Preço"
-                    value={''}
-                    onChange={() => { }}
-                    name="price"
-                    InputProps={{
-                        startAdornment: <InputAdornment position="start">R$</InputAdornment>
-                    }}
-                />
-            </div>
+            this.setState({
+                product: '',
+                quantity: '',
+                unity: '',
+                price: '',
+                showErrors: false,
+            })
+        }
+    };
 
-        </form>
-    );
+    render() {
+        return (
+            <form className="form-container">
+                <div className="form-row">
+                    <TextField
+                        label="Lista"
+                        value={this.state.list}
+                        onChange={this.onChange}
+                        required
+                        name="list"
+                        error={!this.state.list && this.state.showErrors}
+                    />
+                    <Button onClick={this.onSubmit} variant="outlined" color="secondary">Adicionar</Button>
+                </div>
+    
+                <div className="form-row">
+                    <TextField
+                        label="Produto"
+                        value={this.state.product}
+                        onChange={this.onChange}
+                        required
+                        name="product"
+                        error={!this.state.list && this.state.showErrors}
+                    />
+    
+                    <TextField
+                        label="Quantidade"
+                        value={this.state.quantity}
+                        onChange={this.onChange}
+                        required
+                        name="quantity"
+                        error={!this.state.list && this.state.showErrors}
+                    />
+    
+                    <TextField
+                        select
+                        label="Unidade"
+                        value={this.state.unity}
+                        onChange={this.onChange}
+                        required
+                        name="unity"
+                        error={!this.state.list && this.state.showErrors}
+                    >
+                        {
+                            units.map(option => (
+                                <MenuItem key={option} value={option}>
+                                    {option}
+                                </MenuItem>
+                            ))
+                        }
+                    </TextField>
+    
+                    <TextField
+                        label="Preço"
+                        value={this.state.price}
+                        onChange={this.onChange}
+                        name="price"
+                        InputProps={{
+                            startAdornment: <InputAdornment position="start">R$</InputAdornment>
+                        }}
+                    />
+                </div>
+    
+            </form>
+        );
+    }
+    
 };
 
 export default Form;
