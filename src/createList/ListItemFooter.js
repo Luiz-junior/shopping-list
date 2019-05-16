@@ -11,12 +11,13 @@ const ListItemFooter = props => (
                 size="1x"
             />
             <FontAwesomeIcon
+                onClick={() => props.deleteProduct(props.item.id)}
                 icon={faTrash}
                 color="#e91e63"
                 size="1x"
             />
         </div>
-        <p>Total: R$ {props.total}</p>
+        <p>Total: R$ {props.item.total}</p>
     </div>
 );
 
