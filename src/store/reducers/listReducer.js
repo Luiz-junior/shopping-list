@@ -42,6 +42,7 @@ function getItemTotal(product) {
     return product.price * product.quantity;
 };
 
+// helpers
 export const getListTotal = createSelector(
     state => state.list.items,
     items => items.reduce((total, item) => total + item.total, 0)
@@ -55,3 +56,15 @@ function toggleItem(items, productId) {
         ...items.slice(index + 1), // todos os items depois do item a ser modificado
     ];
 };
+
+// selectors
+
+export const getOpenedItems = createSelector(
+    state => state.list.items,
+    items => items.filter(item => !item.checked).length,
+);
+
+export const getClosedItems = createSelector(
+    state => state.list.items,
+    items => items.filter(item => item.checked).length,
+);
