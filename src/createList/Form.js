@@ -3,6 +3,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import { InputAdornment } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { Creators as FormActions } from '../store/actions/form';
 
 const units = ['kilo(s)', 'litro(s)', 'unidade(s)'];
 
@@ -17,15 +21,31 @@ class Form extends Component {
         showErrors: false,
     };
 
+    componentDidUpdate(prevProps) {
+        if (this.props.form.action === 'update' &&
+            prevProps.form.productToUpdate !== this.props.form.productToUpdate) {
+
+            const { product, quantity, unity, price } = this.props.form.productToUpdate;
+
+            this.setState({
+                product,
+                quantity,
+                unity,
+                price,
+                showErrors: false,
+            });
+        }
+    };
+
     onChange = (e) => {
         this.setState({ [e.target.name]: e.target.value });
     };
 
     onSubmit = () => {
         const { list, product, quantity, unity, price } = this.state;
-        if(!list || !product || !quantity || !unity) {
+        if (!list || !product || !quantity || !unity) {
             this.setState({ showErrors: true });
-        } else{
+        } else {
             this.props.addProduct({ product, quantity, unity, price }, list);
 
             this.setState({
@@ -50,9 +70,9 @@ class Form extends Component {
                         name="list"
                         error={!this.state.list && this.state.showErrors}
                     />
-                    <Button onClick={this.onSubmit} variant="outlined" color="secondary">Adicionar</Button>
+                    <Button onClick={this.onSubmit} variant="outlined" color="secondary">Salvar</Button>
                 </div>
-    
+
                 <div className="form-row">
                     <TextField
                         label="Produto"
@@ -62,7 +82,7 @@ class Form extends Component {
                         name="product"
                         error={!this.state.list && this.state.showErrors}
                     />
-    
+
                     <TextField
                         label="Quantidade"
                         value={this.state.quantity}
@@ -71,7 +91,7 @@ class Form extends Component {
                         name="quantity"
                         error={!this.state.list && this.state.showErrors}
                     />
-    
+
                     <TextField
                         select
                         label="Unidade"
@@ -89,7 +109,7 @@ class Form extends Component {
                             ))
                         }
                     </TextField>
-    
+
                     <TextField
                         label="Preço"
                         value={this.state.price}
@@ -100,11 +120,18 @@ class Form extends Component {
                         }}
                     />
                 </div>
-    
+
             </form>
         );
     }
-    
+
 };
 
-export default Form;
+const mapStateToProps = state => ({
+    form: state.form,
+});
+
+const mapDispatchToProps = dispatch =>
+    bindActionCreators(FormActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

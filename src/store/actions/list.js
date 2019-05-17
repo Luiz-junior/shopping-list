@@ -1,4 +1,4 @@
-import { ADD_PRODUCT, DELETE_PRODUCT, TOGGLE_PRODUCT } from './types';
+import { ADD_PRODUCT, DELETE_PRODUCT, TOGGLE_PRODUCT, UPDATE_PRODUCT } from './types';
 
 export const Creators = {
     addProduct: (product, list) => ({
@@ -13,7 +13,13 @@ export const Creators = {
     toggleProduct: productId => ({
         type: TOGGLE_PRODUCT,
         productId,
+    }),
+    updateProduct: (product, list) => ({
+        type: UPDATE_PRODUCT,
+        product,
+        list,
     })
 }
+
 
 

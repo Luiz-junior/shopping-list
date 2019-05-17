@@ -14,7 +14,6 @@ class CreateList extends Component {
     };
 
     render() {
-        console.log(this.props);
         return (
             <div className="page-container">
                 <Form addProduct={this.addProduct} />
