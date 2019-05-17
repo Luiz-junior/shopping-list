@@ -1,3 +1,4 @@
 export const ADD_PRODUCT = 'ADD_PRODUCT';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
 export const TOGGLE_PRODUCT = 'TOGGLE_PRODUCT';
+export const START_UPDATE = 'START_UPDATE';
